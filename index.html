@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Picasso - Social Media Subscription Plans</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0a0a0f 0%, #0d0d1a 50%, #0a0a0f 100%);
+      color: #e0e0e0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Animated Background */
+    .bg-gradient-animate {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(88, 28, 135, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+      z-index: -1;
+      animation: bgPulse 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgPulse {
+      0% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+
+    /* Logo Styling */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-img {
+      height: 45px;
+      width: auto;
+      filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.3));
+      transition: filter 0.3s ease;
+    }
+
+    .logo-img:hover {
+      filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.5));
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Navigation */
+    .nav-link {
+      color: #a0a0a0;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: color 0.3s ease, transform 0.3s ease;
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+
+    .nav-link:hover {
+      color: #8b5cf6;
+      transform: translateY(-2px);
+    }
+
+    .nav-link:focus {
+      outline: 2px solid #8b5cf6;
+      outline-offset: 2px;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .mobile-menu span {
+      width: 24px;
+      height: 2px;
+      background: #8b5cf6;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(15, 15, 25, 0.98);
+      backdrop-filter: blur(20px);
+      padding: 20px;
+      flex-direction: column;
+      gap: 16px;
+      border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .mobile-nav.active {
+      display: flex;
+    }
+
+    @media (max-width: 768px) {
+      .desktop-nav { display: none !important; }
+      .mobile-menu { display: flex; }
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 800;
+      text-align: center;
+      background: linear-gradient(135deg, #ffffff 0%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #6b7280;
+      font-size: 1rem;
+      margin-bottom: 48px;
+    }
+
+    /* Hero / Discovery Section */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      text-align: center;
+      padding: 120px 20px 80px;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff 0%, #8b5cf6 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: #a0a0a0;
+      max-width: 600px;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .hero-agency {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-bottom: 40px;
+    }
+
+    .hero-agency span {
+      color: #8b5cf6;
+      font-weight: 600;
+    }
+
+    /* Discovery Mosaic */
+    .discovery-mosaic {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-auto-rows: 140px;
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .project-tile {
+      position: relative;
+      border-radius: 24px;
+      background: linear-gradient(135deg,
+        rgba(30, 30, 50, 0.7) 0%,
+        rgba(20, 20, 35, 0.9) 100%);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(139, 92, 246, 0.15);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+      transform: translateZ(0);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    /* 👇 إضافة دعم الصور داخل project-tile و service-tile */
+    .project-tile img,
+    .service-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .project-tile::before {
+      content: "Upcoming project";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #6b7280;
+    }
+
+    .project-tile:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.7),
+        0 0 60px rgba(139, 92, 246, 0.22);
+    }
+
+    .project-tile--wide {
+      grid-column: span 2;
+    }
+
+    .project-tile--tall {
+      grid-row: span 2;
+    }
+
+    .project-tile--large {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    @media (max-width: 900px) {
+      .discovery-mosaic {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .project-tile--large {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-section {
+        padding-top: 110px;
+      }
+
+      .discovery-mosaic {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 140px;
+      }
+
+      .project-tile,
+      .project-tile--wide,
+      .project-tile--tall,
+      .project-tile--large {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+    }
+
+    /* CTA button (kept for future use if needed) */
+    .cta-button {
+      background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+      color: white;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+      display: inline-block;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
+    }
+
+    .cta-button:focus {
+      outline: 2px solid #06b6d4;
+      outline-offset: 4px;
+    }
+
+    /* Services Section */
+    .services-section {
+      padding: 80px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 2fr 1.3fr;
+      grid-auto-rows: 170px;
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .service-item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .service-tile {
+      flex: 1;
+      border-radius: 24px;
+      background: linear-gradient(135deg,
+        rgba(30, 30, 50, 0.7) 0%,
+        rgba(20, 20, 35, 0.9) 100%);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      backdrop-filter: blur(18px);
+      box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(139, 92, 246, 0.15);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .service-tile:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.7),
+        0 0 60px rgba(139, 92, 246, 0.22);
+    }
+
+    .service-label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .service-item--ugc {
+      grid-row: span 2;
+    }
+
+    .service-item--web {
+      grid-row: span 1;
+    }
+
+    .service-item--graphic {
+      grid-row: span 1;
+      align-self: end;
+    }
+
+    @media (max-width: 900px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 160px;
+      }
+
+      .service-item--ugc,
+      .service-item--web,
+      .service-item--graphic {
+        grid-row: span 1;
+        align-self: stretch;
+      }
+    }
+
+    /* 3D Cards Container for Pricing */
+    .cards-container {
+      perspective: 1500px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    @media (max-width: 1200px) {
+      .cards-container {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 800px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .cards-container {
+        grid-template-columns: 1fr;
+        max-width: 380px;
+      }
+    }
+
+    /* Glassmorphism Pricing Card */
+    .pricing-card {
+      position: relative;
+      background: linear-gradient(135deg,
+        rgba(30, 30, 50, 0.7) 0%,
+        rgba(20, 20, 35, 0.8) 100%);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 24px;
+      padding: 32px 24px;
+      transform-style: preserve-3d;
+      transform: translateZ(0) rotateX(0) rotateY(0);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
+      overflow: visible;
+      box-shadow:
+        0 4px 30px rgba(0, 0, 0, 0.3),
+        0 0 40px rgba(139, 92, 246, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .pricing-card:hover,
+    .pricing-card.active {
+      transform: translateZ(50px) scale(1.03);
+      border-color: rgba(139, 92, 246, 0.5);
+      box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.5),
+        0 0 80px rgba(139, 92, 246, 0.2),
+        0 0 40px rgba(6, 182, 212, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      z-index: 10;
+    }
+
+    /* Popular Card Special Styling */
+    .pricing-card.popular {
+      border-color: rgba(139, 92, 246, 0.4);
+      background: linear-gradient(135deg,
+        rgba(139, 92, 246, 0.15) 0%,
+        rgba(20, 20, 35, 0.9) 100%);
+    }
+
+    .pricing-card.popular:hover,
+    .pricing-card.popular.active {
+      border-color: rgba(139, 92, 246, 0.7);
+      box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.5),
+        0 0 100px rgba(139, 92, 246, 0.35),
+        0 0 60px rgba(6, 182, 212, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    /* Most Popular Badge */
+    .popular-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.5);
+      white-space: nowrap;
+    }
+
+    /* Card Content */
+    .plan-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .plan-price {
+      font-size: 1.75rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 24px;
+    }
+
+    .plan-price span {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #6b7280;
+      -webkit-text-fill-color: #6b7280;
+    }
+
+    /* Features List */
+    .features-list {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+
+    .features-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 0.9rem;
+      color: #c0c0c0;
+      line-height: 1.4;
+    }
+
+    .features-list li::before {
+      content: "✓";
+      color: #06b6d4;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Bonuses Section */
+    .bonuses-section {
+      border-top: 1px solid rgba(139, 92, 246, 0.2);
+      padding-top: 20px;
+      margin-top: 8px;
+    }
+
+    .bonuses-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #8b5cf6;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .bonuses-list {
+      list-style: none;
+    }
+
+    .bonuses-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 6px 0;
+      font-size: 0.85rem;
+      color: #a0a0a0;
+      line-height: 1.4;
+    }
+
+    .bonuses-list li::before {
+      content: "★";
+      color: #8b5cf6;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    /* Niches Section */
+    .niches-section {
+      padding: 80px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .niches-title {
+      text-transform: lowercase;
+      margin-bottom: 32px;
+    }
+
+    .niches-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .niche-card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+      box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.4),
+        0 0 25px rgba(139, 92, 246, 0.25);
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-align: center;
+      text-transform: capitalize;
+      outline: none;
+    }
+
+    .niche-card:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow:
+        0 14px 35px rgba(0, 0, 0, 0.6),
+        0 0 32px rgba(139, 92, 246, 0.35);
+    }
+
+    .niche-card:active {
+      transform: translateY(0) scale(0.99);
+      box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(139, 92, 246, 0.25);
+    }
+
+    .niche-card:focus-visible {
+      outline: 2px solid #ffffff;
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 480px) {
+      .niches-section {
+        padding-top: 60px;
+      }
+
+      .niches-grid {
+        gap: 16px;
+      }
+
+      .niche-card {
+        padding: 14px 10px;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* Advantages Section */
+    .advantages-section {
+      padding: 80px 20px 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .advantages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .advantage-card {
+      position: relative;
+      background: linear-gradient(135deg,
+        rgba(30, 30, 50, 0.75) 0%,
+        rgba(20, 20, 35, 0.95) 100%);
+      border-radius: 24px;
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      padding: 24px 20px;
+      box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.45),
+        0 0 35px rgba(139, 92, 246, 0.18);
+      backdrop-filter: blur(18px);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .advantage-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.7),
+        0 0 55px rgba(139, 92, 246, 0.25);
+    }
+
+    .advantage-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .advantage-text {
+      font-size: 0.9rem;
+      color: #a0a0a0;
+      line-height: 1.6;
+    }
+
+    /* Footer / Contact */
+    .footer {
+      padding: 40px 20px;
+      border-top: 1px solid rgba(139, 92, 246, 0.15);
+      margin-top: 40px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg,
+        rgba(30, 30, 50, 0.5) 0%,
+        rgba(20, 20, 35, 0.6) 100%);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(37, 211, 102, 0.3);
+      border-radius: 50px;
+      padding: 16px 32px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-row:hover {
+      border-color: rgba(37, 211, 102, 0.6);
+      box-shadow: 0 0 30px rgba(37, 211, 102, 0.2);
+    }
+
+    .whatsapp-icon {
+      width: 28px;
+      height: 28px;
+      fill: #25d366;
+    }
+
+    .whatsapp-link {
+      color: #25d366;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+
+    .whatsapp-link:hover {
+      color: #4ade80;
+    }
+
+    .whatsapp-link:focus {
+      outline: 2px solid #25d366;
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
+    .footer-text {
+      color: #4b5563;
+      font-size: 0.85rem;
+    }
+
+    .footer-text span {
+      color: #8b5cf6;
+    }
+
+    /* Accessibility - Focus States */
+    *:focus-visible {
+      outline: 2px solid #8b5cf6;
+      outline-offset: 2px;
+    }
+
+    /* Selection Color */
+    ::selection {
+      background: rgba(139, 92, 246, 0.3);
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-gradient-animate"></div>
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-opacity-90 backdrop-blur-lg" style="background: rgba(10, 10, 15, 0.85);">
+    <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between relative">
+      <!-- Logo -->
+      <div class="logo-container">
+        <svg class="logo-img" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#8b5cf6"/>
+              <stop offset="50%" style="stop-color:#06b6d4"/>
+              <stop offset="100%" style="stop-color:#3b82f6"/>
+            </linearGradient>
+          </defs>
+          <circle cx="25" cy="25" r="23" stroke="url(#logoGrad)" stroke-width="2" fill="none"/>
+          <path d="M15 35 Q25 10 35 35" stroke="url(#logoGrad)" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <circle cx="18" cy="22" r="4" fill="url(#logoGrad)"/>
+          <circle cx="32" cy="22" r="3" fill="url(#logoGrad)"/>
+        </svg>
+        <span class="logo-text">Picasso</span>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="desktop-nav flex items-center gap-2">
+        <a href="#discovery" class="nav-link">Discovery</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#niches" class="nav-link">Niches</a>
+        <a href="#advantages" class="nav-link">Advantages</a>
+        <a href="#contact" class="nav-link">Contact us</a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="mobile-menu" onclick="toggleMobileMenu()" aria-label="Toggle menu" role="button" tabindex="0">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <!-- Mobile Navigation -->
+      <div class="mobile-nav" id="mobileNav">
+        <a href="#discovery" class="nav-link" onclick="closeMobileMenu()">Discovery</a>
+        <a href="#services" class="nav-link" onclick="closeMobileMenu()">Services</a>
+        <a href="#pricing" class="nav-link" onclick="closeMobileMenu()">Pricing</a>
+        <a href="#niches" class="nav-link" onclick="closeMobileMenu()">Niches</a>
+        <a href="#advantages" class="nav-link" onclick="closeMobileMenu()">Advantages</a>
+        <a href="#contact" class="nav-link" onclick="closeMobileMenu()">Contact us</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Discovery Section -->
+  <section id="discovery" class="hero-section">
+    <h1 class="hero-title">Discover Your Visual Brand World</h1>
+    <p class="hero-subtitle">
+      Explore how your future content and visuals will live on your social media. 
+      These spaces are placeholders for your upcoming projects and campaigns.
+    </p>
+    <p class="hero-agency">Powered by <span>Picasso</span> — Your Social Media Agency</p>
+
+    <!-- Asymmetrical 3D placeholders for future projects -->
+    <div class="discovery-mosaic">
+      <div class="project-tile project-tile--large">
+        <img src="images/project-large.jpg" alt="Main project">
+      </div>
+      <div class="project-tile">
+        <img src="images/project-1.jpg" alt="Project 1">
+      </div>
+      <div class="project-tile project-tile--tall">
+        <img src="images/project-tall-1.jpg" alt="Project tall 1">
+      </div>
+      <div class="project-tile project-tile--wide">
+        <img src="images/project-wide.jpg" alt="Project wide">
+      </div>
+      <div class="project-tile">
+        <img src="images/project-2.jpg" alt="Project 2">
+      </div>
+      <div class="project-tile project-tile--tall">
+        <img src="images/project-tall-2.jpg" alt="Project tall 2">
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="services-section">
+    <h2 class="section-title">Services</h2>
+    <p class="section-subtitle">Core creative services tailored to modern brands</p>
+
+    <div class="services-grid">
+      <!-- UGC - largest -->
+      <div class="service-item service-item--ugc">
+        <div class="service-tile" aria-label="UGC service placeholder">
+          <img src="images/ugc.jpg" alt="UGC service">
+        </div>
+        <p class="service-label">UGC</p>
+      </div>
+
+      <!-- 3D websites -->
+      <div class="service-item service-item--web">
+        <div class="service-tile" aria-label="3D websites service placeholder">
+          <img src="images/3d-website.jpg" alt="3D websites service">
+        </div>
+        <p class="service-label">3D websites</p>
+      </div>
+
+      <!-- Graphic videos -->
+      <div class="service-item service-item--graphic">
+        <div class="service-tile" aria-label="Graphic videos service placeholder">
+          <img src="images/graphic-video.jpg" alt="Graphic videos service">
+        </div>
+        <p class="service-label">Graphic videos</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Plans Section -->
+  <section id="pricing" class="py-20 px-4">
+    <h2 class="section-title">Pricing</h2>
+    <p class="section-subtitle">Monthly subscriptions tailored to your brand's needs</p>
+
+    <div class="cards-container" id="cardsContainer">
+      <!-- Beginner Plan -->
+      <div class="pricing-card" tabindex="0" role="button" aria-label="Beginner Plan - 4,000 EGP per month">
+        <h3 class="plan-title">Beginner Plan</h3>
+        <div class="plan-price">4,000 EGP<span>/month</span></div>
+        <ul class="features-list">
+          <li>10 professional posts</li>
+          <li>Light/basic branding</li>
+          <li>1 revision per post</li>
+          <li>Optional scheduling</li>
+        </ul>
+        <div class="bonuses-section">
+          <h4 class="bonuses-title">Bonuses</h4>
+          <ul class="bonuses-list">
+            <li>2 stories</li>
+            <li>Mini posting calendar</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Standard Plan -->
+      <div class="pricing-card" tabindex="0" role="button" aria-label="Standard Plan - 8,000 EGP per month">
+        <h3 class="plan-title">Standard Plan</h3>
+        <div class="plan-price">8,000 EGP<span>/month</span></div>
+        <ul class="features-list">
+          <li>20 high-quality posts</li>
+          <li>Cohesive branding</li>
+          <li>1 revision per post</li>
+          <li>Scheduling</li>
+        </ul>
+        <div class="bonuses-section">
+          <h4 class="bonuses-title">Bonuses</h4>
+          <ul class="bonuses-list">
+            <li>4 stories</li>
+            <li>Monthly posting calendar</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Premium Plan (Most Popular) -->
+      <div class="pricing-card popular" tabindex="0" role="button" aria-label="Premium Plan - Most Popular - 15,000 EGP per month">
+        <div class="popular-badge">Most Popular</div>
+        <h3 class="plan-title">Premium Plan</h3>
+        <div class="plan-price">15,000 EGP<span>/month</span></div>
+        <ul class="features-list">
+          <li>30 realistic high-quality posts</li>
+          <li>Full cohesive branding</li>
+          <li>Unlimited revisions</li>
+          <li>Scheduling included</li>
+        </ul>
+        <div class="bonuses-section">
+          <h4 class="bonuses-title">Bonuses</h4>
+          <ul class="bonuses-list">
+            <li>5 stories</li>
+            <li>Monthly content strategy & insights</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Business VIP Plan -->
+      <div class="pricing-card" tabindex="0" role="button" aria-label="Business VIP Plan - 35,000 EGP per month">
+        <h3 class="plan-title">Business VIP</h3>
+        <div class="plan-price">35,000 EGP<span>/month</span></div>
+        <ul class="features-list">
+          <li>50 premium realistic posts</li>
+          <li>5 AI-generated realistic UGC videos</li>
+          <li>Elite full brand system</li>
+          <li>Unlimited revisions</li>
+        </ul>
+        <div class="bonuses-section">
+          <h4 class="bonuses-title">Bonuses</h4>
+          <ul class="bonuses-list">
+            <li>16 stories</li>
+            <li>4 offer posters</li>
+            <li>Monthly performance report</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NICHES SECTION -->
+  <section id="niches" class="niches-section">
+    <h2 class="section-title niches-title">niches</h2>
+
+    <div class="niches-grid">
+      <!-- Left column -->
+      <a href="#restaurant" class="niche-card">restaurant</a>
+      <a href="#dental-clinic" class="niche-card">Dental clinic</a>
+
+      <a href="#beauty-clinic" class="niche-card">Beauty clinic</a>
+      <a href="#jewelary" class="niche-card">Jewelary</a>
+
+      <a href="#ecommerce" class="niche-card">E-commerce</a>
+      <a href="#interior-design" class="niche-card">interior design</a>
+
+      <a href="#gym" class="niche-card">Gym</a>
+      <a href="#others" class="niche-card">+ others</a>
+    </div>
+  </section>
+
+  <!-- ADVANTAGES SECTION -->
+  <section id="advantages" class="advantages-section">
+    <h2 class="section-title">Advantages</h2>
+    <p class="section-subtitle">Why working with Picasso gives your brand a long-term edge</p>
+
+    <div class="advantages-grid">
+      <div class="advantage-card">
+        <h3 class="advantage-title">Daily Posting</h3>
+        <p class="advantage-text">
+          Posting every day keeps your business constantly visible and active. Your audience gets used to seeing your brand regularly, 
+          which helps build trust and familiarity. Over time, this steady flow of content makes people feel connected to your business 
+          and increases the chances they will choose you when they need your service.
+        </p>
+      </div>
+
+      <div class="advantage-card">
+        <h3 class="advantage-title">One day Delivery Time</h3>
+        <p class="advantage-text">
+          A fast delivery system means you never have to wait long to get your designs. This allows your business to stay consistent 
+          and respond quickly to new offers, events, or changes. You’ll always have fresh content ready exactly when you need it, 
+          without delays or gaps.
+        </p>
+      </div>
+
+      <div class="advantage-card">
+        <h3 class="advantage-title">Monthly Posting Plan + Analysis</h3>
+        <p class="advantage-text">
+          You receive a full monthly posting structure that keeps your page organized, consistent, and visually balanced. 
+          The analysis helps you understand which type of content connects the most with your audience, allowing you to focus 
+          more on what works best for your business.
+        </p>
+      </div>
+
+      <div class="advantage-card">
+        <h3 class="advantage-title">Branding DNA</h3>
+        <p class="advantage-text">
+          Your brand gets a clear identity—colors, fonts, style, tone, and visual personality. This makes all your posts look 
+          unified and professional. A strong visual identity helps people instantly recognize your business, even before they read the text.
+        </p>
+      </div>
+
+      <div class="advantage-card">
+        <h3 class="advantage-title">Realistic Images</h3>
+        <p class="advantage-text">
+          High-quality, realistic visuals make your products and services look impressive and trustworthy. Clear and believable 
+          imagery helps customers imagine the real experience of choosing your business, which increases their confidence and interest.
+        </p>
+      </div>
+
+      <div class="advantage-card">
+        <h3 class="advantage-title">Authentic UGC Videos</h3>
+        <p class="advantage-text">
+          UGC-style videos feel natural and human, helping your audience relate more to your business. They show your service or product 
+          in a real-life context that feels honest and believable, which makes customers more comfortable and more willing to interact with your brand.
+        </p>
+      </div>
+
+      <div class="advantage-card">
+        <h3 class="advantage-title">Fast Contact Support</h3>
+        <p class="advantage-text">
+          You can solve issues, request changes, or ask for updates at any time without waiting. This keeps your workflow smooth and stress-free, 
+          and ensures you always get exactly what you need in the shortest time possible.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer / Contact -->
+  <footer id="contact" class="footer">
+    <div class="footer-content">
+      <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 24px;">Get In Touch</h3>
+      <div class="contact-row">
+        <!-- WhatsApp Icon -->
+        <svg class="whatsapp-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        <a href="https://wa.me/201050580721"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="whatsapp-link"
+           aria-label="Contact us on WhatsApp">
+          01050580721
+        </a>
+      </div>
+      <p class="footer-text">©️ 2024 <span>Picasso</span>. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // MOBILE NAVIGATION
+    function toggleMobileMenu() {
+      const mobileNav = document.getElementById('mobileNav');
+      mobileNav.classList.toggle('active');
+    }
+
+    function closeMobileMenu() {
+      const mobileNav = document.getElementById('mobileNav');
+      mobileNav.classList.remove('active');
+    }
+
+    document.addEventListener('click', (e) => {
+      const mobileNav = document.getElementById('mobileNav');
+      const mobileMenu = document.querySelector('.mobile-menu');
+      if (!mobileNav.contains(e.target) && !mobileMenu.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+
+    // 3D INTERACTION FOR PRICING CARDS
+    function initializeCards() {
+      const cards = document.querySelectorAll('.pricing-card');
+      let activeCard = null;
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+      cards.forEach(card => {
+        if (!isTouchDevice) {
+          card.addEventListener('mouseenter', () => {
+            cards.forEach(c => {
+              if (c !== card) c.classList.remove('active');
+            });
+            card.classList.add('active');
+            activeCard = card;
+          });
+
+          card.addEventListener('mouseleave', () => {
+            card.classList.remove('active');
+            activeCard = null;
+          });
+
+          card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -8;
+            const rotateY = ((x - centerX) / centerX) * 8;
+
+            card.style.transform = `
+              translateZ(50px)
+              scale(1.03)
+              rotateX(${rotateX}deg)
+              rotateY(${rotateY}deg)
+            `;
+          });
+
+          card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateZ(0) scale(1) rotateX(0) rotateY(0)';
+          });
+        }
+
+        if (isTouchDevice) {
+          card.addEventListener('touchstart', () => {
+            if (card === activeCard) return;
+            if (activeCard) {
+              activeCard.classList.remove('active');
+              activeCard.style.transform = 'translateZ(0) scale(1) rotateX(0) rotateY(0)';
+            }
+            card.classList.add('active');
+            card.style.transform = 'translateZ(50px) scale(1.03)';
+            activeCard = card;
+          }, { passive: true });
+        }
+
+        card.addEventListener('focus', () => {
+          cards.forEach(c => {
+            if (c !== card) c.classList.remove('active');
+          });
+          card.classList.add('active');
+          activeCard = card;
+        });
+
+        card.addEventListener('blur', () => {
+          card.classList.remove('active');
+          activeCard = null;
+        });
+
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            card.classList.toggle('active');
+          }
+        });
+      });
+
+      if (isTouchDevice) {
+        document.addEventListener('touchstart', (e) => {
+          let touchedCard = false;
+          cards.forEach(card => {
+            if (card.contains(e.target)) {
+              touchedCard = true;
+            }
+          });
+
+          if (!touchedCard && activeCard) {
+            activeCard.classList.remove('active');
+            activeCard.style.transform = 'translateZ(0) scale(1) rotateX(0) rotateY(0)';
+            activeCard = null;
+          }
+        }, { passive: true });
+      }
+    }
+
+    // SMOOTH SCROLL
+    function initializeSmoothScroll() {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href && href !== '#') {
+            const target = document.querySelector(href);
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          }
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeCards();
+      initializeSmoothScroll();
+    });
+  </script>
+</body>
+</html>
